@@ -1,0 +1,18 @@
+name: Workflow
+
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: macos-latest
+    name: check workflow
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: npm install  
+
+
