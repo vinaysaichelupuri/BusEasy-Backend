@@ -17,9 +17,9 @@ describe("Database Connection Mocking", () => {
             dialect: 'postgres',
             host: 'localhost',
             port: 5432,
-            username: 'mamatha',
-            password: 'mamatha123',
-            database: 'leavetrackr',
+            username: 'vinaysai',
+            password: '9700',
+            database: 'buseasy',
         });
 
         await expect(sequelize.authenticate()).resolves.toBe("Connection successful");
@@ -33,12 +33,13 @@ describe("Database Connection Mocking", () => {
             dialect: 'postgres',
             host: 'localhost',
             port: 5432,
-            username: 'test_user',
-            password: 'test_password',
-            database: 'test_db',
+            username: 'vinaysai',
+            password: '9700',
+            database: 'buseasy',
         });
 
         await expect(sequelize.authenticate()).rejects.toThrow("Connection failed");
         expect(mockAuthenticate).toHaveBeenCalled();
     });
 });
+
