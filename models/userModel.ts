@@ -18,7 +18,7 @@ export const User = sequelizeConnection.define('User', {
   },
   password: {
     type: DataTypes.STRING,
-    unique: true,
+    unique: false,
     allowNull: false,
   },
   phoneNumber: {
