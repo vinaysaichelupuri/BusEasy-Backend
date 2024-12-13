@@ -7,7 +7,7 @@ export class UserService {
         if (user) {
             return {status:400}
         };
-        User.create({ name, email, password, phoneNumber });
+        User.create({ name, password,email, phoneNumber });
         return {status:200}
 
     }
