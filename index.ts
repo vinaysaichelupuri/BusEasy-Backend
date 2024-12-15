@@ -1,8 +1,13 @@
 import express from 'express';
 import { sequelizeConnection } from './databaseConnections/sequelizeDatabaseConnection';
-const app = express();
+
+import userRegister from './routes/userRegister';
 export const router = express.Router();
 const port = 5005;
+const app = express()
+app.use(express.json());
+const cors = require('cors');
+app.use(cors());
 
 
 async function Server(){
@@ -14,6 +19,7 @@ async function Server(){
 }
 }
 Server();
+app.use('/api',userRegister);
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
