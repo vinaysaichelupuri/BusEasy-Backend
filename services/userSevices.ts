@@ -1,28 +1,26 @@
 import { User } from "../models/userModel";
-
-
 export class UserService {
-    static async registerUser(name: string, email: string, password: string, phoneNumber: string) {
-        const user = await User.findOne({ where: { name } });
-        if (user) {
-            return {status:400}
-        };
-        User.create({ name, password,email, phoneNumber });
-        return {status:200}
-
+  async registerUser(name: string, email: string, password: string, phoneNumber: string) {
+    const user = await User.findOne({ where: { name } });
+    if (user) {
+      return { status: 400, message: 'User already exists' };
     }
-  
-    static async loginUser(name: string, password: string) {
+    await User.create({ name, password, email, phoneNumber });
+    return { status: 200, message: 'Register successful' };
+  }
+
+    async loginUser(name: string, password: string) {
       const user = await User.findOne({ where: { name } });
+  
       if (!user) {
-        return{status:404}
-      };
-      const userPassword = user.password
-      if(userPassword===password){
-        return {status:200}
+        return { status: 404, message: 'User not found' };
       }
-      else{
-        return {status:401}
+  
+      const userPassword = user.password;
+      if (userPassword === password) {
+        return { status: 200, message: 'Login successful' };
+      } else {
+        return { status: 401, message: 'Incorrect password' };
       }
     }
   }

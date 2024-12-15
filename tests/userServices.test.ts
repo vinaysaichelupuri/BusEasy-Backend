@@ -1,11 +1,12 @@
 import { User } from '../models/userModel';
 import { UserService } from '../services/userSevices';
 jest.mock('../models/userModel');
+const userService = new UserService();
 describe('UserService', () => {
   describe('registerUser', () => {
     it('should return 400 if user with the same name already exists', async () => {
       (User.findOne as jest.Mock).mockResolvedValueOnce({ name: 'existingUser' });
-      const response = await UserService.registerUser('existingUser', 'test@email.com', 'password123', '1234567890');
+      const response = await userService.registerUser('existingUser', 'test@email.com', 'password123', '1234567890');
       expect(response.status).toBe(400); 
       expect(User.findOne).toHaveBeenCalledWith({ where: { name: 'existingUser' } });
       expect(User.create).not.toHaveBeenCalled();
@@ -20,7 +21,7 @@ describe('UserService', () => {
         phoneNumber: '1234567890',
       });
 
-      const response = await UserService.registerUser('newUser', 'new@email.com', 'password123', '1234567890');
+      const response = await userService.registerUser('newUser', 'new@email.com', 'password123', '1234567890');
       expect(response.status).toBe(200); 
       expect(User.findOne).toHaveBeenCalledWith({ where: { name: 'newUser' } });
       expect(User.create).toHaveBeenCalledWith({
@@ -36,7 +37,7 @@ describe('UserService', () => {
 
     it('should return 404 if user does not exist', async () => {
       (User.findOne as jest.Mock).mockResolvedValueOnce(null);
-      const response = await UserService.loginUser('nonExistentUser', 'password123');
+      const response = await userService.loginUser('nonExistentUser', 'password123');
       expect(response.status).toBe(404); 
       expect(User.findOne).toHaveBeenCalledWith({ where: { name: 'nonExistentUser' } });
     });
@@ -47,7 +48,7 @@ describe('UserService', () => {
         password: 'password123',
       });
 
-      const response = await UserService.loginUser('existingUser', 'password123');
+      const response = await userService.loginUser('existingUser', 'password123');
       expect(response.status).toBe(200); 
       expect(User.findOne).toHaveBeenCalledWith({ where: { name: 'existingUser' } });
     });
@@ -58,7 +59,7 @@ describe('UserService', () => {
         password: 'wrongPassword',
       });
 
-      const response = await UserService.loginUser('existingUser', 'password123');
+      const response = await userService.loginUser('existingUser', 'password123');
       expect(response.status).toBe(401); 
       expect(User.findOne).toHaveBeenCalledWith({ where: { name: 'existingUser' } });
     });
