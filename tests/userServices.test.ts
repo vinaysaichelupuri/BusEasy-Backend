@@ -21,7 +21,7 @@ describe('UserService', () => {
         phoneNumber: '1234567890',
       });
 
-      const response = await userService.registerUser('newUser', 'new@email.com', 'password123', '1234567890');
+      const response = await userService.registerUser('newUser',  'password123','new@email.com', '1234567890');
       expect(response.status).toBe(200); 
       expect(User.findOne).toHaveBeenCalledWith({ where: { name: 'newUser' } });
       expect(User.create).toHaveBeenCalledWith({

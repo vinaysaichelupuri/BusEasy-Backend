@@ -6,12 +6,13 @@ router.post('/user', async (req: Request, res: Response) => {
   try {
     const { name, password } = req.body;
     const user = await userService.loginUser(name, password);
-    if (user) {
-      const { status, message } = await userService.loginUser(name, password);
-      res.status(status).json({ message });
-}
+    res.status(user.status).json({ message: user.message });
+    console.log(user.message)
+    console.log(user.status)  
   } catch (error) {
     res.status(500).json({ error: 'An error occurred' });
   }
 });
+
 export default router;
+

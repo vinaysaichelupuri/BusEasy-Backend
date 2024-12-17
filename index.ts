@@ -2,6 +2,8 @@ import express from 'express';
 import { sequelizeConnection } from './databaseConnections/sequelizeDatabaseConnection';
 import userLogin from './routes/userLogin';
 import userRegister from './routes/userRegister'
+import bookingServices from './routes/bookingSevices'
+import ticketDetails from './routes/ticketDetails'
 export const router = express.Router();
 const port = 5005;
 const app = express()
@@ -24,6 +26,8 @@ Server();
 // insertBusData()
 app.use('/api',userLogin);
 app.use('/api',userRegister);
+app.use('/api',bookingServices);
+app.use('/api',ticketDetails);
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });

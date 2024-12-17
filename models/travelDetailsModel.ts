@@ -1,9 +1,9 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('./db');
+import { sequelizeConnection } from "../databaseConnections/sequelizeDatabaseConnection";
 import { User } from "./userModel";
 import { Vehicle } from "./vehicleModal";
 
-export const TravelDetails = sequelize.define('travelDetails', {
+export const TravelDetails = sequelizeConnection.define('travelDetails', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
